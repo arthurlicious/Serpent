@@ -38,6 +38,10 @@ namespace SerpantWebApp
              after toggling identity which is our DB context class we are using default token provider for generating
             the email
              
+            currently using identity user, which comes from the identity framework, which is already defined
+            in that data framework, which in turn generates the databasse table through entity framework
+
+            however, we can extend that table to accept and store more user information
              */
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
@@ -68,6 +72,11 @@ namespace SerpantWebApp
 
             // Interface is created for the email service to be shared throughout the application
             services.AddSingleton<IEmailService, EmailService>();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", policy => policy.RequireUserName("arthurchongs@gmail.com"));
+            });
 
             
         }

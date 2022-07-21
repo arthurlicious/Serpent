@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SerpantWebApp.Pages.Account
@@ -28,6 +31,18 @@ namespace SerpantWebApp.Pages.Account
                 this.LoginViewModel.Password,
                 this.LoginViewModel.RememberMe,
                 false);
+
+           /* var claims = new List<Claim>
+            {
+                new Claim("admin_arthur@gmail.com", LoginViewModel.Email),
+                new Claim("P@ssw0rd", LoginViewModel.Password),
+                new Claim(ClaimTypes.Role, "Administrator"),
+            };
+            var identity = new ClaimsIdentity(claims, "CookieForAdmin");
+            ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
+
+        */
+
 
             if (result.Succeeded)
             {
