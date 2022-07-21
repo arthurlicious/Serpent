@@ -16,5 +16,7 @@ namespace SerpantWebApp.Data
         }
 
         public DbSet<SerpantWebApp.Models.Classrooms> Classroom { get; set; }
+
+        public DbSet<SerpantWebApp.Models.Attendances> Attendance { get; set; }
     }
 }
