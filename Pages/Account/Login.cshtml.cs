@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SerpantWebApp.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
@@ -11,8 +12,8 @@ namespace SerpantWebApp.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        public LoginModel(SignInManager<IdentityUser> signInManager)
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        public LoginModel(SignInManager<ApplicationUser> signInManager)
         {
             _signInManager = signInManager;
         }
@@ -22,6 +23,7 @@ namespace SerpantWebApp.Pages.Account
         {
         }
 
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid) return Page();
@@ -29,27 +31,24 @@ namespace SerpantWebApp.Pages.Account
             var result = await _signInManager.PasswordSignInAsync(
                 this.LoginViewModel.Email,
                 this.LoginViewModel.Password,
-                this.LoginViewModel.RememberMe,
+                false,
                 false);
-
-           /* var claims = new List<Claim>
-            {
-                new Claim("admin_arthur@gmail.com", LoginViewModel.Email),
-                new Claim("P@ssw0rd", LoginViewModel.Password),
-                new Claim(ClaimTypes.Role, "Administrator"),
-            };
-            var identity = new ClaimsIdentity(claims, "CookieForAdmin");
-            ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
-
-        */
 
 
             if (result.Succeeded)
             {
-                return RedirectToPage("/Index");
+                return LocalRedirect("/Index");
             }
             else
             {
+                if (result.RequiresTwoFactor)
+                {
+                    return RedirectToPage("/Account/LoginTwoFactor", new
+                    {
+                        Email = this.LoginViewModel.Email
+
+                    });
+                }
                 if (result.IsLockedOut)
                 {
                     ModelState.AddModelError("Login", "You are locked out.");
@@ -71,7 +70,6 @@ namespace SerpantWebApp.Pages.Account
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        [Display(Name = "Remember Me!")]
-        public bool RememberMe { get; set; }
+       
     }
 }

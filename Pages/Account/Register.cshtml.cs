@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SerpantWebApp.Models;
 using SerpantWebApp.Services;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
@@ -11,11 +12,11 @@ namespace SerpantWebApp.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailService emailService;
 
         // going to the dependency injection to inject the IEmailService
-        public RegisterModel(UserManager<IdentityUser> userManager, IEmailService emailService)
+        public RegisterModel(UserManager<ApplicationUser> userManager, IEmailService emailService)
         {
 
             _userManager = userManager;
@@ -35,7 +36,7 @@ namespace SerpantWebApp.Pages.Account
             // Validating email address
 
             // Create the user
-            var user = new IdentityUser
+            var user = new ApplicationUser
             {
                 Email = RegisterViewModel.Email,
                 UserName = RegisterViewModel.Email

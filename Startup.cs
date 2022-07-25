@@ -13,6 +13,7 @@ using SerpantWebApp.Data;
 using Microsoft.AspNetCore.Identity;
 using SerpantWebApp.Settings;
 using SerpantWebApp.Services;
+using SerpantWebApp.Models;
 
 namespace SerpantWebApp
 {
@@ -28,7 +29,10 @@ namespace SerpantWebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddRazorPages(options =>
+            {
+                options.Conventions.AuthorizeFolder("/Roles", "AdminOnly");
+            });
 
             services.AddDbContext<SerpantWebAppContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("SerpantWebAppContext")));
@@ -43,7 +47,7 @@ namespace SerpantWebApp
 
             however, we can extend that table to accept and store more user information
              */
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
                 // Password settings
                 options.Password.RequireDigit = false;
@@ -58,14 +62,36 @@ namespace SerpantWebApp
                 options.Lockout.AllowedForNewUsers = true;
                 // User settings
                 options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedEmail = true;
             })
                 .AddEntityFrameworkStores<SerpantWebAppContext>()
+                // this line of code will give you the email two factor authentication functionality
                 .AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Account/Login";
                 options.AccessDeniedPath = "/Account/AccessDenied";
+
+                /*
+                 *  options.Cookie.HttpOnly = true;
+                 when set to true, it does not allow cookies to be read with clientside script like JS. This
+                would prevent cross site scripting vulnerabilities - attempts to read a cookie and sends it back to attacker
+
+                HttpOnly is a Flag, it tells the browser that the cookie should only be accessed by a server
+
+                 */
+                options.Cookie.HttpOnly = true;
+
+                /*
+                 Options.ExpireTimeSpan = TimeSpan.FromSeconds(30); 
+
+                this sets how the long the cookie is valid for. Default is 14 days. If slidingexpiration is false, 
+                user will have to sign back once the 30-sec is up. if slidingexpiration is true, then the cookie
+                would be re-issued on any request half way through the ExpiresTimeSpan
+                 */
+                options.ExpireTimeSpan = TimeSpan.FromSeconds(500);
+                options.SlidingExpiration = true;
             });
 
             services.Configure<SMTPSetting>(Configuration.GetSection("SMTP"));
@@ -78,6 +104,7 @@ namespace SerpantWebApp
                 options.AddPolicy("AdminOnly", policy => policy.RequireUserName("arthurchongs@gmail.com"));
             });
 
+            
             
         }
 
@@ -106,6 +133,7 @@ namespace SerpantWebApp
 
 
             app.UseAuthentication();
+
             app.UseAuthorization();
 
 
