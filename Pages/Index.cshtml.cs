@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SerpantWebApp.Pages
 {
-    [Authorize]
+    [AllowAnonymous]
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;

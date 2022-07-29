@@ -231,54 +231,160 @@ namespace SerpantWebApp.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b74ddd14-6340-4840-95c2-db12884843e5",
+                            AccessFailedCount = 0,
+                            Age = 0,
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "3a2fa110-c050-4cc0-93ed-040c1024eb94",
+                            Email = "petertestacct3010@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "petertestacct3010@gmail.com",
+                            NormalizedUserName = "petertestacct3010@gmail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBQJAZW4ccSbIbr/vbWc9NotOzE71GBpVhQj1tsiuC2A7PLk3is7dTIXGCRh84Dk3Q==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "b2ed099b-9acb-4104-8462-064c6a7f82d2",
+                            TwoFactorEnabled = false,
+                            UserName = "petertestacct3010@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "c15eeds50-9053-4323-53de23-dw32435f33",
+                            AccessFailedCount = 0,
+                            Age = 0,
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "53a1a84d-7ee8-401a-881f-5e0555c26264",
+                            Email = "jamesTestAcct3010@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "jamesTestAcct3010@gmail.com",
+                            NormalizedUserName = "jamesTestAcct3010@gmail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGKGY4Sl3XqT/djr4ewKA6e/LgZM/3t+HfcEKoMl1Kc9L1/ZHVgkpZanqf8g6cWm+g==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "a4e0f1a2-3525-47bb-9cdc-1dc32df138d2",
+                            TwoFactorEnabled = false,
+                            UserName = "jamesTestAcct3010@gmail.com"
+                        });
                 });
 
-            modelBuilder.Entity("SerpantWebApp.Models.Attendances", b =>
+            modelBuilder.Entity("SerpantWebApp.Models.Attendance", b =>
                 {
-                    b.Property<int>("SID")
+                    b.Property<int>("LessonSessionID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("CourseID")
+                        .HasColumnType("int");
 
-                    b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("presence")
+                    b.Property<bool>("Presence")
                         .HasColumnType("bit");
 
-                    b.HasKey("SID");
+                    b.Property<int>("StudentID")
+                        .HasColumnType("int");
+
+                    b.HasKey("LessonSessionID");
+
+                    b.HasIndex("CourseID");
+
+                    b.HasIndex("StudentID");
 
                     b.ToTable("Attendance");
                 });
 
-            modelBuilder.Entity("SerpantWebApp.Models.Classrooms", b =>
+            modelBuilder.Entity("SerpantWebApp.Models.Course", b =>
+                {
+                    b.Property<int>("CourseID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Credits")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TeacherStaffID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CourseID");
+
+                    b.HasIndex("TeacherStaffID");
+
+                    b.ToTable("Course");
+                });
+
+            modelBuilder.Entity("SerpantWebApp.Models.Student", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Block")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StudentID")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("TimeSlot")
+                    b.Property<DateTime?>("EnrollmentDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Unit")
+                    b.Property<byte[]>("File")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
 
-                    b.ToTable("Classroom");
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Student");
+                });
+
+            modelBuilder.Entity("SerpantWebApp.Models.Teacher", b =>
+                {
+                    b.Property<int>("StaffID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CourseID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("EnrollmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("File")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("StaffID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Teacher");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -330,6 +436,42 @@ namespace SerpantWebApp.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SerpantWebApp.Models.Attendance", b =>
+                {
+                    b.HasOne("SerpantWebApp.Models.Course", "Course")
+                        .WithMany("Attendances")
+                        .HasForeignKey("CourseID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SerpantWebApp.Models.Student", "Student")
+                        .WithMany("Attendances")
+                        .HasForeignKey("StudentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SerpantWebApp.Models.Course", b =>
+                {
+                    b.HasOne("SerpantWebApp.Models.Teacher", "Teacher")
+                        .WithMany("Courses")
+                        .HasForeignKey("TeacherStaffID");
+                });
+
+            modelBuilder.Entity("SerpantWebApp.Models.Student", b =>
+                {
+                    b.HasOne("SerpantWebApp.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+                });
+
+            modelBuilder.Entity("SerpantWebApp.Models.Teacher", b =>
+                {
+                    b.HasOne("SerpantWebApp.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
                 });
 #pragma warning restore 612, 618
         }

@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Identity;
 using SerpantWebApp.Settings;
 using SerpantWebApp.Services;
 using SerpantWebApp.Models;
+using SerpantWebApp.Authorization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SerpantWebApp
 {
@@ -31,7 +33,7 @@ namespace SerpantWebApp
         {
             services.AddRazorPages(options =>
             {
-                options.Conventions.AuthorizeFolder("/Roles", "AdminOnly");
+                options.Conventions.AuthorizeFolder("/Roles", "TwoFactorEnabled");
             });
 
             services.AddDbContext<SerpantWebAppContext>(options =>
@@ -68,6 +70,8 @@ namespace SerpantWebApp
                 // this line of code will give you the email two factor authentication functionality
                 .AddDefaultTokenProviders();
 
+
+
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Account/Login";
@@ -83,6 +87,7 @@ namespace SerpantWebApp
                  */
                 options.Cookie.HttpOnly = true;
 
+                
                 /*
                  Options.ExpireTimeSpan = TimeSpan.FromSeconds(30); 
 
@@ -99,9 +104,24 @@ namespace SerpantWebApp
             // Interface is created for the email service to be shared throughout the application
             services.AddSingleton<IEmailService, EmailService>();
 
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AdditionalUserClaimsPrincipalFactory>();
+
+
+            // Authorization Handlers
+            /*          services.AddSingleton<IAuthorizationHandler, ContactAdministratorsAuthorizationHandler>();
+
+                      services.AddSingleton<IAuthorizationHandler, ContactManagerAuthorizationHandler>();
+
+                      services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AdditionalUserClaimsPrincipalFactory>();*/
+
+
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("AdminOnly", policy => policy.RequireUserName("arthurchongs@gmail.com"));
+                /*options.AddPolicy("AdminOnly", policy => policy.RequireUserName("arthurchongs@gmail.com"));*/
+                /*options.AddPolicy("TwoFactorEnabled", x => x.RequireClaim("amr", "mfa"));*/
+                options.AddPolicy("TwoFactorEnabled",
+                    x => x.RequireClaim("TwoFactorEnabled", "true")
+                );
             });
 
             

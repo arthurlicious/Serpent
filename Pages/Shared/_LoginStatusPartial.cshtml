@@ -1,14 +1,41 @@
-﻿@if(User.Identity.IsAuthenticated){
+﻿@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using SerpantWebApp.Models
+@inject UserManager<ApplicationUser> UserManager
+@inject IAuthorizationService AuthorizationService
+@inject SignInManager<ApplicationUser> SignInManager
+
+@if(SignInManager.IsSignedIn(User)){
     <form method="post" class="form-inline" asp-page="/Account/Logout">
         <ul class="nav navbar-nav navbar-right">
-                <li class="nav-item">
-                    <a class="nav-link text-light" asp-area="" asp-page="/Roles/Index">Roles</a>
-                </li>
+            
+                @if ((AuthorizationService.AuthorizeAsync(User, "TwoFactorEnabled")).Result.Succeeded)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-page="/Roles/Index"><i class="fa fa-user-circle text-primary" aria-hidden="true"></i>
+                            Role Management</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" asp-area="" asp-page="/Account/AuthenticatorWithMFASetup"
+                           id="tooltip-demo" 
+                           data-toggle="tooltip"
+                           data-placement="bottom"
+                           title="MFA is NOT enabled. This is required for the Admin Page. If you have activated MFA, then logout, login again.">
+                            <i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i>
+                            Admin
+                        </a>
+ 
+                    </li>
+                }
+
                 <li class="nav-item">
                     <a class="nav-link text-light" asp-page="/Manage/Index" title="Manage">Welcome @User.Identity.Name!</a>
                 </li>
                 <li class="nav-item">
-                    <button type="submit" class="nav-link text-dark">Logout</button>
+                    <button type="submit" class="navbar-btn btn btn-danger">Logout</button>
                 </li>
         </ul>
     </form>
@@ -22,3 +49,8 @@
             </li>
     </ul>
 }
+
+<environment include="Development">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+</environment>

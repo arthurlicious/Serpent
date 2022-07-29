@@ -1,3 +1,4 @@
+using CryptoHelper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -5,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using SerpantWebApp.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -28,11 +30,14 @@ namespace SerpantWebApp.Pages.Account
         {
             if (!ModelState.IsValid) return Page();
 
+
             var result = await _signInManager.PasswordSignInAsync(
                 this.LoginViewModel.Email,
                 this.LoginViewModel.Password,
                 false,
                 false);
+
+          
 
 
             if (result.Succeeded)
@@ -43,12 +48,13 @@ namespace SerpantWebApp.Pages.Account
             {
                 if (result.RequiresTwoFactor)
                 {
-                    return RedirectToPage("/Account/LoginTwoFactor", new
+                    return RedirectToPage("/Account/LoginTwoFactorWithAuthenticator", new
                     {
-                        Email = this.LoginViewModel.Email
-
+                        /*RememberMe  = this.LoginViewModel.RememberMe,*/
+                        id = this.LoginViewModel.Email
                     });
                 }
+                
                 if (result.IsLockedOut)
                 {
                     ModelState.AddModelError("Login", "You are locked out.");
@@ -70,6 +76,11 @@ namespace SerpantWebApp.Pages.Account
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-       
+
+        [Display(Name = "Remember me?")]
+        public bool RememberMe { get; set; }
+
     }
+
+
 }
