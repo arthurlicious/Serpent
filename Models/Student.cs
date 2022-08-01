@@ -12,14 +12,17 @@ namespace SerpantWebApp.Models
         public string LastName { get; set; }
         public string FirstName { get; set; }
 
+        public string UserName { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime? EnrollmentDate { get; set; }
 
-  
+
         public byte[] File { get; set; }
         public string FilePath { get; set; }
 
         public string UserID { get; set; }
+        public string RoleID { get; set; }
 
 
 
@@ -35,6 +38,9 @@ namespace SerpantWebApp.Models
         public StudentStatus Status { get; set; }
 
         public ApplicationUser User { get; set; }
+
+        public ApplicationRole Role { get; set; }
+
     }
     public enum StudentStatus
     {

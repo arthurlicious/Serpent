@@ -33,7 +33,7 @@ namespace SerpantWebApp
         {
             services.AddRazorPages(options =>
             {
-                options.Conventions.AuthorizeFolder("/Roles", "TwoFactorEnabled");
+                /*options.Conventions.AuthorizeFolder("/Roles", "TwoFactorEnabled");*/
             });
 
             services.AddDbContext<SerpantWebAppContext>(options =>
@@ -51,6 +51,8 @@ namespace SerpantWebApp
              */
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
+                // Username settings
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 // Password settings
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 5;
@@ -62,7 +64,7 @@ namespace SerpantWebApp
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
-                // User settings
+                // User Email settings
                 options.User.RequireUniqueEmail = true;
                 options.SignIn.RequireConfirmedEmail = true;
             })
@@ -108,11 +110,15 @@ namespace SerpantWebApp
 
 
             // Authorization Handlers
-            /*          services.AddSingleton<IAuthorizationHandler, ContactAdministratorsAuthorizationHandler>();
+            /*
+             They're singletons because they don't use EF and all the information needed is in the Context parameter
+            of the HandleRequirementAsync method.
+             */
+            services.AddSingleton<IAuthorizationHandler, ContactAdministratorsAuthorizationHandler>();
 
-                      services.AddSingleton<IAuthorizationHandler, ContactManagerAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, ContactManagerAuthorizationHandler>();
 
-                      services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AdditionalUserClaimsPrincipalFactory>();*/
+                  /*    services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AdditionalUserClaimsPrincipalFactory>();*/
 
 
             services.AddAuthorization(options =>
@@ -122,6 +128,8 @@ namespace SerpantWebApp
                 options.AddPolicy("TwoFactorEnabled",
                     x => x.RequireClaim("TwoFactorEnabled", "true")
                 );
+
+                options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
             });
 
             

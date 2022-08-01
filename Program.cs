@@ -16,6 +16,7 @@ namespace SerpantWebApp
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
+            /*DeleteDbIfExists(host);*/
             CreateDbIfNotExists(host);
             host.Run();
         }
@@ -39,7 +40,7 @@ namespace SerpantWebApp
             }
         }
 
-        /*private static void DeleteDbIfExists(IHost host)
+        private static void DeleteDbIfExists(IHost host)
         {
             using (var scope = host.Services.CreateScope())
             {
@@ -56,7 +57,7 @@ namespace SerpantWebApp
                     logger.LogError(ex, "An error occurred deleting the DB.");
                 }
             }
-        }*/
+        }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)

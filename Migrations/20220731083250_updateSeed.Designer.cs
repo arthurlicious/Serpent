@@ -10,8 +10,8 @@ using SerpantWebApp.Data;
 namespace SerpantWebApp.Migrations
 {
     [DbContext(typeof(SerpantWebAppContext))]
-    [Migration("20220729104715_UpdateModel")]
-    partial class UpdateModel
+    [Migration("20220731083250_updateSeed")]
+    partial class updateSeed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -241,15 +241,15 @@ namespace SerpantWebApp.Migrations
                             AccessFailedCount = 0,
                             Age = 0,
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "3a2fa110-c050-4cc0-93ed-040c1024eb94",
+                            ConcurrencyStamp = "d5ebe830-9007-4411-b514-f1d9420592b3",
                             Email = "petertestacct3010@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "petertestacct3010@gmail.com",
                             NormalizedUserName = "petertestacct3010@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBQJAZW4ccSbIbr/vbWc9NotOzE71GBpVhQj1tsiuC2A7PLk3is7dTIXGCRh84Dk3Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENJbzoUslBdrAeio04kxJXhVgkY/FsmJUgegKzuGgW07K3/4xPIMxSwkkPg7lGB5pQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b2ed099b-9acb-4104-8462-064c6a7f82d2",
+                            SecurityStamp = "65854c53-6ae4-4aa3-9204-3573c955826b",
                             TwoFactorEnabled = false,
                             UserName = "petertestacct3010@gmail.com"
                         },
@@ -259,15 +259,15 @@ namespace SerpantWebApp.Migrations
                             AccessFailedCount = 0,
                             Age = 0,
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "53a1a84d-7ee8-401a-881f-5e0555c26264",
+                            ConcurrencyStamp = "bac95aa2-8684-452a-a8df-ff7587cf8c4c",
                             Email = "jamesTestAcct3010@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "jamesTestAcct3010@gmail.com",
                             NormalizedUserName = "jamesTestAcct3010@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGKGY4Sl3XqT/djr4ewKA6e/LgZM/3t+HfcEKoMl1Kc9L1/ZHVgkpZanqf8g6cWm+g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENUOxFpfkWc1s2kIJHGyKfRYOhwGh7grW2HxTc7auHExwuA1Wp7FB8hytilZYYd2Yg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a4e0f1a2-3525-47bb-9cdc-1dc32df138d2",
+                            SecurityStamp = "34e1e13d-5f83-4a50-bdef-e31fe06c247c",
                             TwoFactorEnabled = false,
                             UserName = "jamesTestAcct3010@gmail.com"
                         });
@@ -296,6 +296,54 @@ namespace SerpantWebApp.Migrations
                     b.HasIndex("StudentID");
 
                     b.ToTable("Attendance");
+                });
+
+            modelBuilder.Entity("SerpantWebApp.Models.AttendanceSheetForMath", b =>
+                {
+                    b.Property<int>("LessonSessionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CourseTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Presence")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("StaffName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LessonSessionID");
+
+                    b.ToTable("AttendanceSheetForMath");
+                });
+
+            modelBuilder.Entity("SerpantWebApp.Models.AttendanceSheetForProgramming", b =>
+                {
+                    b.Property<int>("LessonSessionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CourseTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Presence")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("StaffName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LessonSessionID");
+
+                    b.ToTable("AttendanceSheetForProgramming");
                 });
 
             modelBuilder.Entity("SerpantWebApp.Models.Course", b =>
@@ -341,6 +389,9 @@ namespace SerpantWebApp.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("RoleID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -348,6 +399,8 @@ namespace SerpantWebApp.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("RoleID");
 
                     b.HasIndex("UserID");
 
@@ -464,6 +517,10 @@ namespace SerpantWebApp.Migrations
 
             modelBuilder.Entity("SerpantWebApp.Models.Student", b =>
                 {
+                    b.HasOne("SerpantWebApp.Models.ApplicationRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleID");
+
                     b.HasOne("SerpantWebApp.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserID");

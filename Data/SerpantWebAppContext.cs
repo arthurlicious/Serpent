@@ -24,15 +24,20 @@ namespace SerpantWebApp.Data
             // Add your customizations after calling base.OnModelCreating(builder);
             builder.Seed();
 
-            builder.Entity<Course>().ToTable("Course");
+            /*builder.Entity<Course>().ToTable("Course");
             builder.Entity<Attendance>().ToTable("Attendance");
-            builder.Entity<Student>().ToTable("Student");
+            builder.Entity<Student>().ToTable("Student");*/
+
+          
 
         }
 
         public DbSet<SerpantWebApp.Models.Student> Student { get; set; }
         public DbSet<SerpantWebApp.Models.Attendance> Attendance { get; set; }
         public DbSet<SerpantWebApp.Models.Course> Course { get; set; }
+        public DbSet<SerpantWebApp.Models.AttendanceSheetForMath> AttendanceSheetForMath { get; set; }
+        public DbSet<SerpantWebApp.Models.AttendanceSheetForProgramming> AttendanceSheetForProgramming { get; set; }
+        public DbSet<SerpantWebApp.Models.Teacher> Teacher { get; set; }
 
 
 

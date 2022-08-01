@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SerpantWebApp.Models
 {
@@ -21,6 +22,7 @@ namespace SerpantWebApp.Models
          
          */
         public int StudentID { get; set; }
+        public int TeacherID { get; set; }
 
         /*
          
@@ -31,5 +33,6 @@ namespace SerpantWebApp.Models
 
         public Course Course { get; set; }
         public Student Student { get; set; }
+        public Teacher Teacher { get; set; }
     }
 }

@@ -10,8 +10,8 @@ using SerpantWebApp.Data;
 namespace SerpantWebApp.Migrations
 {
     [DbContext(typeof(SerpantWebAppContext))]
-    [Migration("20220729092531_AddAmin")]
-    partial class AddAmin
+    [Migration("20220731083344_updateSeed2")]
+    partial class updateSeed2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -159,6 +159,32 @@ namespace SerpantWebApp.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "fab4fac1-c546-41de-aebc-a14da6895711",
+                            ConcurrencyStamp = "1",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Admin",
+                            NormalizedName = "Admin"
+                        },
+                        new
+                        {
+                            Id = "c7b013f0-5201-4317-abd8-c211f91b7330",
+                            ConcurrencyStamp = "2",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Teacher",
+                            NormalizedName = "Teacher"
+                        },
+                        new
+                        {
+                            Id = "rewefac1-c53d-434f-a5gz-pet32gg95711",
+                            ConcurrencyStamp = "3",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Student",
+                            NormalizedName = "Student"
+                        });
                 });
 
             modelBuilder.Entity("SerpantWebApp.Models.ApplicationUser", b =>
@@ -241,15 +267,15 @@ namespace SerpantWebApp.Migrations
                             AccessFailedCount = 0,
                             Age = 0,
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "35745e96-32a1-4cee-8194-745e6f1bb82b",
+                            ConcurrencyStamp = "5215bd11-52ba-4d40-a4f0-4cf1f7d54f9d",
                             Email = "petertestacct3010@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "petertestacct3010@gmail.com",
                             NormalizedUserName = "petertestacct3010@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMnG50BaSiT/pygH19P4hu/+8wj5UWhP1bMm6F4Q711y6TXOkfU0FIAQUGybuDJanA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEM+gW8p1caDuEUreuATJJA5K5FEiFRQomNoZOiSG6efcWOxxQS0a5YsEr3QZIao+Hg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8ce06451-ea44-432a-bf45-673ba83fa731",
+                            SecurityStamp = "e5a2bce7-2f83-489d-8ba5-d02cb38d8b19",
                             TwoFactorEnabled = false,
                             UserName = "petertestacct3010@gmail.com"
                         },
@@ -259,17 +285,143 @@ namespace SerpantWebApp.Migrations
                             AccessFailedCount = 0,
                             Age = 0,
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "721a9503-b267-488f-8b71-8dd74b2b563a",
+                            ConcurrencyStamp = "fd0d459e-6fe7-4734-86aa-0b44654766d3",
                             Email = "jamesTestAcct3010@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "jamesTestAcct3010@gmail.com",
                             NormalizedUserName = "jamesTestAcct3010@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMO0TRuween80yuDtK5ub/xoakVxp8rI8kgQ/R8YwPQPVLufGs/lXm+KxjYGekE/2w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPc/lRowBSTLB17DABySne79lUPjr0r05sYOYL1u316pmHTYdyK+61yWhx/h2eh4Xg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4a235b41-6dc3-466e-b298-6fac59380ef5",
+                            SecurityStamp = "d96948f6-184f-4622-8756-2205e45042ac",
                             TwoFactorEnabled = false,
                             UserName = "jamesTestAcct3010@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "rtweetwe1-3gre-yop2-verbm-rwerreww433",
+                            AccessFailedCount = 0,
+                            Age = 0,
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "d2b6d620-f1ab-446b-9901-db45facacc72",
+                            Email = "alexander@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "alexander@gmail.com",
+                            NormalizedUserName = "alexander@gmail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEER1NfIxUyV4eweR05c/lvx8jqB6WjiF6IGUD+CF+NvNFCtWZFGYI+QoxJfH1BYatQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "cba31498-7be0-4110-a4ff-528eb267ff6f",
+                            TwoFactorEnabled = false,
+                            UserName = "alexander@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "rrtetrere-f32g-s42q-f3232f-ecdsvd32433",
+                            AccessFailedCount = 0,
+                            Age = 0,
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "109d6cd7-a041-43b7-b806-70724720bdda",
+                            Email = "mike@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "mike@gmail.com",
+                            NormalizedUserName = "mike@gmail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEACHUwSJykglulm7YZ3KcJHVh7zPRHTx1lK3ysa+J4m5Nail7Ck8TmOIiWELpTN0mw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "f5e61ff7-0165-4bb0-a1b8-89dbf9dc74a0",
+                            TwoFactorEnabled = false,
+                            UserName = "mike@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "effin2343-3fzz-tg3f-2fsa3-eccafwee32433",
+                            AccessFailedCount = 0,
+                            Age = 0,
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "43eb2336-78ae-4b12-9be0-da07fc026cdb",
+                            Email = "bob@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "bob@gmail.com",
+                            NormalizedUserName = "bob@gmail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMr8LnPfNQWuib79glFVnPJPH8A6sNvtfk4kaLCxxWzWHmDXRS39cgKhp7GDXHj7ug==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "45a95667-7841-47bd-929e-b5dce6a65898",
+                            TwoFactorEnabled = false,
+                            UserName = "bob@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "34dfwef33-y525f-h432-r32-evvvreze32433",
+                            AccessFailedCount = 0,
+                            Age = 0,
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "143a39dd-164a-49cd-9e30-d7130b9a3974",
+                            Email = "hansel@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "hansel@gmail.com",
+                            NormalizedUserName = "hansel@gmail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKFxGIxZiWSaeJ5YekGnTb+yHH4uciIvJXLKvy7dCVoHFPL3Aa703aG8l75AmA5j6Q==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "92926d45-d6dc-47d1-bdf5-03f960c811a6",
+                            TwoFactorEnabled = false,
+                            UserName = "hansel@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "fet434t34-fwe3d-tu34f-fwe-owepopwefpf2423",
+                            AccessFailedCount = 0,
+                            Age = 0,
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "424294d2-4493-49dd-a916-50529cbc58a5",
+                            Email = "grethel@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "grethel@gmail.com",
+                            NormalizedUserName = "grethel@gmail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBuxJ6PAwuXbdYDYgtKDE2eh/LqEl8NObzSSi5unOvDH8Mqt8w9lOvlVB1tfjAQ5vg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "f781c034-59cc-4f25-b074-5dbe749dc940",
+                            TwoFactorEnabled = false,
+                            UserName = "grethel@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "zdmmdf34-fewf3-geg2353-ppoe-fwekkv32ife",
+                            AccessFailedCount = 0,
+                            Age = 0,
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "e8244161-5001-4e03-8a90-6a2ce3171558",
+                            Email = "saiful@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "saiful@gmail.com",
+                            NormalizedUserName = "saiful@gmail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFBZAaYqp4f2zGtcjnJIzL9Y2kUMJClDR/5y+FEQ/v2upAxe81KGacgUvKuWZWi9TQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "89610378-c06e-4f7f-8b1d-07f97bf8238e",
+                            TwoFactorEnabled = false,
+                            UserName = "saiful@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "vre4yw-h563-g34y45h-fewf32-pqpfowef3",
+                            AccessFailedCount = 0,
+                            Age = 0,
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "1efac528-921b-43e5-9f9f-9eb9b1ad54ad",
+                            Email = "charis@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "charis@gmail.com",
+                            NormalizedUserName = "charis@gmail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBLdT6w4iK5K60fRNG9skjxc0g8/4OQ/wHlBVIWAJ5hGQSeJzRWo6hkqU73EQFOAxQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "a95d85d9-ada4-4158-a36e-ef5ef8fb1cb5",
+                            TwoFactorEnabled = false,
+                            UserName = "charis@gmail.com"
                         });
                 });
 
@@ -283,8 +435,8 @@ namespace SerpantWebApp.Migrations
                     b.Property<int>("CourseID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Presence")
-                        .HasColumnType("int");
+                    b.Property<bool>("Presence")
+                        .HasColumnType("bit");
 
                     b.Property<int>("StudentID")
                         .HasColumnType("int");
@@ -296,6 +448,54 @@ namespace SerpantWebApp.Migrations
                     b.HasIndex("StudentID");
 
                     b.ToTable("Attendance");
+                });
+
+            modelBuilder.Entity("SerpantWebApp.Models.AttendanceSheetForMath", b =>
+                {
+                    b.Property<int>("LessonSessionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CourseTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Presence")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("StaffName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LessonSessionID");
+
+                    b.ToTable("AttendanceSheetForMath");
+                });
+
+            modelBuilder.Entity("SerpantWebApp.Models.AttendanceSheetForProgramming", b =>
+                {
+                    b.Property<int>("LessonSessionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CourseTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Presence")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("StaffName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LessonSessionID");
+
+                    b.ToTable("AttendanceSheetForProgramming");
                 });
 
             modelBuilder.Entity("SerpantWebApp.Models.Course", b =>
@@ -341,10 +541,20 @@ namespace SerpantWebApp.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("RoleID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("RoleID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("Student");
                 });
@@ -374,7 +584,12 @@ namespace SerpantWebApp.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("StaffID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("Teacher");
                 });
@@ -450,6 +665,24 @@ namespace SerpantWebApp.Migrations
                     b.HasOne("SerpantWebApp.Models.Teacher", "Teacher")
                         .WithMany("Courses")
                         .HasForeignKey("TeacherStaffID");
+                });
+
+            modelBuilder.Entity("SerpantWebApp.Models.Student", b =>
+                {
+                    b.HasOne("SerpantWebApp.Models.ApplicationRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleID");
+
+                    b.HasOne("SerpantWebApp.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+                });
+
+            modelBuilder.Entity("SerpantWebApp.Models.Teacher", b =>
+                {
+                    b.HasOne("SerpantWebApp.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
                 });
 #pragma warning restore 612, 618
         }

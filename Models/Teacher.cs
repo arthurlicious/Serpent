@@ -6,8 +6,7 @@ namespace SerpantWebApp.Models
 {
     public class Teacher
     {
-        [Key]
-        public int StaffID { get; set; }
+        public int ID { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
 
@@ -18,12 +17,16 @@ namespace SerpantWebApp.Models
         public byte[] File { get; set; }
         public string FilePath { get; set; }
 
-        public int CourseID { get; set; }
-
+     
 
         public string UserID { get; set; }
+        public string RoleID { get; set; }
 
+        public ICollection<Attendance> Attendances { get; set; }
         public ApplicationUser User { get; set; }
+
+        public ApplicationRole Role { get; set; }
+
         /*
      
          

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SerpantWebApp.Migrations
 {
-    public partial class AddAmin : Migration
+    public partial class updateSeed : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -53,39 +53,35 @@ namespace SerpantWebApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Student",
+                name: "AttendanceSheetForMath",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
+                    LessonSessionID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LastName = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    EnrollmentDate = table.Column<DateTime>(nullable: true),
-                    File = table.Column<byte[]>(nullable: true),
-                    FilePath = table.Column<string>(nullable: true),
-                    Status = table.Column<int>(nullable: false)
+                    CourseTitle = table.Column<string>(nullable: true),
+                    StaffName = table.Column<string>(nullable: true),
+                    StudentName = table.Column<string>(nullable: true),
+                    Presence = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Student", x => x.ID);
+                    table.PrimaryKey("PK_AttendanceSheetForMath", x => x.LessonSessionID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Teacher",
+                name: "AttendanceSheetForProgramming",
                 columns: table => new
                 {
-                    StaffID = table.Column<int>(nullable: false)
+                    LessonSessionID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LastName = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    EnrollmentDate = table.Column<DateTime>(nullable: true),
-                    File = table.Column<byte[]>(nullable: true),
-                    FilePath = table.Column<string>(nullable: true),
-                    CourseID = table.Column<int>(nullable: false)
+                    CourseTitle = table.Column<string>(nullable: true),
+                    StaffName = table.Column<string>(nullable: true),
+                    StudentName = table.Column<string>(nullable: true),
+                    Presence = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Teacher", x => x.StaffID);
+                    table.PrimaryKey("PK_AttendanceSheetForProgramming", x => x.LessonSessionID);
                 });
 
             migrationBuilder.CreateTable(
@@ -195,6 +191,63 @@ namespace SerpantWebApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Student",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LastName = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    EnrollmentDate = table.Column<DateTime>(nullable: true),
+                    File = table.Column<byte[]>(nullable: true),
+                    FilePath = table.Column<string>(nullable: true),
+                    UserID = table.Column<string>(nullable: true),
+                    RoleID = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Student", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Student_AspNetRoles_RoleID",
+                        column: x => x.RoleID,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Student_AspNetUsers_UserID",
+                        column: x => x.UserID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Teacher",
+                columns: table => new
+                {
+                    StaffID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LastName = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    EnrollmentDate = table.Column<DateTime>(nullable: true),
+                    File = table.Column<byte[]>(nullable: true),
+                    FilePath = table.Column<string>(nullable: true),
+                    CourseID = table.Column<int>(nullable: false),
+                    UserID = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Teacher", x => x.StaffID);
+                    table.ForeignKey(
+                        name: "FK_Teacher_AspNetUsers_UserID",
+                        column: x => x.UserID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Course",
                 columns: table => new
                 {
@@ -222,7 +275,7 @@ namespace SerpantWebApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CourseID = table.Column<int>(nullable: false),
                     StudentID = table.Column<int>(nullable: false),
-                    Presence = table.Column<int>(nullable: true)
+                    Presence = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -244,12 +297,12 @@ namespace SerpantWebApp.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Age", "BirthDate", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "b74ddd14-6340-4840-95c2-db12884843e5", 0, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "35745e96-32a1-4cee-8194-745e6f1bb82b", "petertestacct3010@gmail.com", true, null, false, null, "petertestacct3010@gmail.com", "petertestacct3010@gmail.com", "AQAAAAEAACcQAAAAEMnG50BaSiT/pygH19P4hu/+8wj5UWhP1bMm6F4Q711y6TXOkfU0FIAQUGybuDJanA==", null, false, "8ce06451-ea44-432a-bf45-673ba83fa731", false, "petertestacct3010@gmail.com" });
+                values: new object[] { "b74ddd14-6340-4840-95c2-db12884843e5", 0, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "d5ebe830-9007-4411-b514-f1d9420592b3", "petertestacct3010@gmail.com", true, null, false, null, "petertestacct3010@gmail.com", "petertestacct3010@gmail.com", "AQAAAAEAACcQAAAAENJbzoUslBdrAeio04kxJXhVgkY/FsmJUgegKzuGgW07K3/4xPIMxSwkkPg7lGB5pQ==", null, false, "65854c53-6ae4-4aa3-9204-3573c955826b", false, "petertestacct3010@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Age", "BirthDate", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "c15eeds50-9053-4323-53de23-dw32435f33", 0, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "721a9503-b267-488f-8b71-8dd74b2b563a", "jamesTestAcct3010@gmail.com", true, null, false, null, "jamesTestAcct3010@gmail.com", "jamesTestAcct3010@gmail.com", "AQAAAAEAACcQAAAAEMO0TRuween80yuDtK5ub/xoakVxp8rI8kgQ/R8YwPQPVLufGs/lXm+KxjYGekE/2w==", null, false, "4a235b41-6dc3-466e-b298-6fac59380ef5", false, "jamesTestAcct3010@gmail.com" });
+                values: new object[] { "c15eeds50-9053-4323-53de23-dw32435f33", 0, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "bac95aa2-8684-452a-a8df-ff7587cf8c4c", "jamesTestAcct3010@gmail.com", true, null, false, null, "jamesTestAcct3010@gmail.com", "jamesTestAcct3010@gmail.com", "AQAAAAEAACcQAAAAENUOxFpfkWc1s2kIJHGyKfRYOhwGh7grW2HxTc7auHExwuA1Wp7FB8hytilZYYd2Yg==", null, false, "34e1e13d-5f83-4a50-bdef-e31fe06c247c", false, "jamesTestAcct3010@gmail.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -304,6 +357,21 @@ namespace SerpantWebApp.Migrations
                 name: "IX_Course_TeacherStaffID",
                 table: "Course",
                 column: "TeacherStaffID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Student_RoleID",
+                table: "Student",
+                column: "RoleID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Student_UserID",
+                table: "Student",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Teacher_UserID",
+                table: "Teacher",
+                column: "UserID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -327,10 +395,10 @@ namespace SerpantWebApp.Migrations
                 name: "Attendance");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "AttendanceSheetForMath");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "AttendanceSheetForProgramming");
 
             migrationBuilder.DropTable(
                 name: "Course");
@@ -340,6 +408,12 @@ namespace SerpantWebApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Teacher");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

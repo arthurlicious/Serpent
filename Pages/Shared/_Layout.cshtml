@@ -1,5 +1,8 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@using SerpantWebApp.Models
 
+@inject SignInManager<ApplicationUser> SignInManager
+@inject RoleManager<ApplicationRole> RoleManager
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +29,20 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
-                      
+                        
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            @if (User.IsInRole("Admin") || User.IsInRole("Teacher")){
+                                 <li class="nav-item">
+                                    <a class="nav-link text-light" asp-area="" asp-page="/Roles/Index">Roles</a>
+                                </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link text-light" asp-area="" asp-page="/Students/Index">Students</a>
+                                </li>
+                            }
+                           
+                        }
+
                             
                         
                     </ul>

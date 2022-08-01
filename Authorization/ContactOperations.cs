@@ -3,7 +3,7 @@ using Microsoft.VisualBasic;
 
 namespace SerpantWebApp.Authorization
 {
-    public static class StudentOperations
+    public static class ContactOperations
     {
         public static OperationAuthorizationRequirement Create =
           new OperationAuthorizationRequirement { Name = Constants.CreateOperationName };

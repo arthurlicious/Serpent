@@ -7,6 +7,8 @@
 
 <h1>Index</h1>
 
+              
+
 <p>
     <a asp-page="Create">Create New</a>
 </p>
@@ -29,13 +31,13 @@
 @foreach (var item in Model.Attendance) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Teacher.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Title)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Presence)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Course.CourseID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Student.ID)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.LessonSessionID">Edit</a> |

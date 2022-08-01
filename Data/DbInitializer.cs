@@ -7,13 +7,13 @@ namespace SerpantWebApp.Data
     {
         public static void Initialize(SerpantWebAppContext context)
         {
-            context.Database.EnsureCreated();
+            /*context.Database.EnsureCreated();
 
             // Look for any students.
             if (context.Attendance.Any())
             {
                 return;   // DB has been seeded
-            }
+            }*/
 
            /* var students = new Student[]
             {

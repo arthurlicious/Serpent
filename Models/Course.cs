@@ -10,6 +10,8 @@ namespace SerpantWebApp.Models
         public string Title { get; set; }
         public int Credits { get; set; }
 
+        public string TeacherID { get; set; }
+
 
         public Teacher Teacher { get; set; }
 

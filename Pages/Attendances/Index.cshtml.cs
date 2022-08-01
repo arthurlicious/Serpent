@@ -24,6 +24,7 @@ namespace SerpantWebApp.Pages.Attendances
         public async Task OnGetAsync()
         {
             Attendance = await _context.Attendance
+                .Include(a => a.Teacher)
                 .Include(a => a.Course)
                 .Include(a => a.Student).ToListAsync();
         }
