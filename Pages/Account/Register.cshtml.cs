@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using SerpantWebApp.Models;
 using SerpantWebApp.Services;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
@@ -29,11 +30,48 @@ namespace SerpantWebApp.Pages.Account
         {
         }
 
+        // basic email validation function
+        bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        bool IsExistingEmail(string email)
+        {
+            return _userManager.Users.Any(x => x.UserName == email);
+        }
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid) return Page();
 
             // Validating email address
+            if (!IsValidEmail(RegisterViewModel.Email))
+            {
+                ModelState.AddModelError("Register", "Use a valid email address!");
+                return Page();
+            }
+
+            /*if (IsExistingEmail(RegisterViewModel.Email))
+            {
+                ModelState.AddModelError("Register", "This Email Address has already been used!");
+                return Page();
+            }*/
+
+            // Validate Password
+            if (RegisterViewModel.Password != RegisterViewModel.ConfirmPassword)
+            {
+                ModelState.AddModelError("Register", "The passwords do not match!");
+                return Page();
+            }
 
             // Create the user
             var user = new ApplicationUser
@@ -68,6 +106,8 @@ namespace SerpantWebApp.Pages.Account
                     "Please Confirm your Email",
                     $"Please Click on this Link to Confirm your Email Address : {confirmationLink}");
 
+                ModelState.AddModelError("Register", "");
+
                 return RedirectToPage("/Account/Login");
             }
             else
@@ -89,5 +129,8 @@ namespace SerpantWebApp.Pages.Account
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+       
+        [DataType(DataType.Password)]
+        public string ConfirmPassword { get; set; }
     }
 }

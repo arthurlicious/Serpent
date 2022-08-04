@@ -16,6 +16,9 @@ using SerpantWebApp.Services;
 using SerpantWebApp.Models;
 using SerpantWebApp.Authorization;
 using Microsoft.AspNetCore.Authorization;
+using AspNetCore.ReCaptcha;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 
 namespace SerpantWebApp
 {
@@ -33,7 +36,49 @@ namespace SerpantWebApp
         {
             services.AddRazorPages(options =>
             {
-                /*options.Conventions.AuthorizeFolder("/Roles", "TwoFactorEnabled");*/
+                options.Conventions.AuthorizeFolder("/Roles", "Admin");
+                options.Conventions.AuthorizeFolder("/Audit", "Admin");
+                
+                // Teachers Folder
+                options.Conventions.AuthorizeFolder("/Teachers", "AdminTeacher");
+                options.Conventions.AuthorizePage("/Teachers/Create", "Admin");
+                options.Conventions.AuthorizePage("/Teachers/Edit", "Admin");
+                options.Conventions.AuthorizePage("/Teachers/Delete", "Admin");
+
+                // Students Folder
+                options.Conventions.AuthorizeFolder("/Students", "AdminStudentTeacher");
+                options.Conventions.AuthorizePage("/Students/Create", "AdminTeacher");
+                options.Conventions.AuthorizePage("/Students/Edit", "AdminTeacher");
+                options.Conventions.AuthorizePage("/Students/Delete", "AdminTeacher");
+
+                // World Immersion
+                options.Conventions.AuthorizeFolder("/WorldImmersion", "AdminStudentTeacher");
+                options.Conventions.AuthorizePage("/WorldImmersion/Create", "Teacher");
+                options.Conventions.AuthorizePage("/WorldImmersion/Edit", "Teacher");
+                options.Conventions.AuthorizePage("/WorldImmersion/Delete", "Teacher");
+
+                // Software Secure Development
+                options.Conventions.AuthorizeFolder("/SoftwareSecureDeve", "AdminStudentTeacher");
+                options.Conventions.AuthorizePage("/SoftwareSecureDeve/Create", "Teacher");
+                options.Conventions.AuthorizePage("/SoftwareSecureDeve/Edit", "Teacher");
+                options.Conventions.AuthorizePage("/SoftwareSecureDeve/Delete", "Teacher");
+
+                // FundamentalOfProgramming
+                options.Conventions.AuthorizeFolder("/FundamentalOfProgramming", "AdminStudentTeacher");
+                options.Conventions.AuthorizePage("/FundamentalOfProgramming/Create", "Teacher");
+                options.Conventions.AuthorizePage("/FundamentalOfProgramming/Edit", "Teacher");
+                options.Conventions.AuthorizePage("/FundamentalOfProgramming/Delete", "Teacher");
+
+                // Cryptography
+                options.Conventions.AuthorizeFolder("/Cryptography", "AdminStudentTeacher");
+                options.Conventions.AuthorizePage("/Cryptography/Create", "Teacher");
+                options.Conventions.AuthorizePage("/Cryptography/Edit", "Teacher");
+                options.Conventions.AuthorizePage("/Cryptography/Delete", "Teacher");
+
+                // Manage
+                options.Conventions.AuthorizeFolder("/Manage", "AdminStudentTeacher");
+
+                options.Conventions.AllowAnonymousToPage("/Index");
             });
 
             services.AddDbContext<SerpantWebAppContext>(options =>
@@ -67,17 +112,22 @@ namespace SerpantWebApp
                 // User Email settings
                 options.User.RequireUniqueEmail = true;
                 options.SignIn.RequireConfirmedEmail = true;
+                
             })
                 .AddEntityFrameworkStores<SerpantWebAppContext>()
                 // this line of code will give you the email two factor authentication functionality
                 .AddDefaultTokenProviders();
 
 
+ 
+
 
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Account/Login";
-                options.AccessDeniedPath = "/Account/AccessDenied";
+
+                options.AccessDeniedPath = "/Error403";
+                /*options.AccessDeniedPath = "/403/AccessDenied";*/
 
                 /*
                  *  options.Cookie.HttpOnly = true;
@@ -88,6 +138,7 @@ namespace SerpantWebApp
 
                  */
                 options.Cookie.HttpOnly = true;
+                
 
                 
                 /*
@@ -124,14 +175,23 @@ namespace SerpantWebApp
             services.AddAuthorization(options =>
             {
                 /*options.AddPolicy("AdminOnly", policy => policy.RequireUserName("arthurchongs@gmail.com"));*/
-                /*options.AddPolicy("TwoFactorEnabled", x => x.RequireClaim("amr", "mfa"));*/
+          
                 options.AddPolicy("TwoFactorEnabled",
                     x => x.RequireClaim("TwoFactorEnabled", "true")
                 );
 
                 options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+                options.AddPolicy("Teacher", policy => policy.RequireRole("Teacher"));
+                options.AddPolicy("Student", policy => policy.RequireRole("Student"));
+                options.AddPolicy("AdminTeacher", policy => policy.RequireRole("Admin", "Teacher"));
+                options.AddPolicy("StudentTeacher", policy => policy.RequireRole("Student", "Teacher"));
+                options.AddPolicy("AdminStudentTeacher", policy => policy.RequireRole("Admin", "Student","Teacher"));
             });
 
+            // reCaptcha service is injected into the program
+            services.AddReCaptcha(Configuration.GetSection("ReCaptcha"));
+
+            
             
             
         }
@@ -143,6 +203,8 @@ namespace SerpantWebApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -154,7 +216,18 @@ namespace SerpantWebApp
                 app.UseHsts();
             }
 
+
+
+            /* app.UseStatusCodePagesWithReExecute("/Error403");
+
+*/
+ 
+
             app.UseHttpsRedirection();
+
+            // custom 404 and error page - this preserves the status code (ie 404)
+            /*app.UseStatusCodePagesWithReExecute("/Error403/{0}");*/
+
             app.UseStaticFiles();
 
             app.UseRouting();

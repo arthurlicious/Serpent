@@ -5,62 +5,38 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
+<h4 class="text-center text-uppercase">Teacher List</h4> 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create" class="btn btn-sm btn-primary rounded-0 text-uppercase"><i class="fa fa-plus-circle"></i> Create New</a>  
 </p>
-<table class="table">
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Teacher[0].LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Teacher[0].FirstName)
+                @Html.DisplayNameFor(model => model.Teacher[0].FullName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Teacher[0].EnrollmentDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Teacher[0].File)
+                <h3>Appproach Your Admin</h3>
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Teacher[0].FilePath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Teacher[0].User)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Teacher[0].Role)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.Teacher) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
+            <td>  
+                <img src="~/images/@item.FilePath"
+                        class="rounded-circle"   
+                        height="40" width="40"   
+                        asp-append-version="true" />  
+                @item.FullName  
+            </td>  
             <td>
                 @Html.DisplayFor(modelItem => item.EnrollmentDate)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.File)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FilePath)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Role.Id)
-            </td>
+           
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |

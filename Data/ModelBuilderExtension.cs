@@ -168,6 +168,58 @@ namespace SerpantWebApp.Data
             modelBuilder.Entity<ApplicationUser>().HasData(teacherUser2);
 
 
+
+
+            // Normal User
+            ApplicationUser normalUser1 = new ApplicationUser()
+            {
+
+                Id = "vewgj-oytjf-myr34-gre43gh-gw3443",
+                UserName = "bruce@gmail.com",
+                NormalizedUserName = "bruce@gmail.com",
+                Email = "bruce@gmail.com",
+                NormalizedEmail = "bruce@gmail.com",
+                EmailConfirmed = true
+
+            };
+
+            normalUser1.PasswordHash = passwordHasher.HashPassword(normalUser1, "P@ssword@1010");
+            modelBuilder.Entity<ApplicationUser>().HasData(normalUser1);
+
+            ApplicationUser normalUser2 = new ApplicationUser()
+            {
+
+                Id = "poh5g-gwgwe43-hjkytg43-few32r-g34b43",
+                UserName = "python@gmail.com",
+                NormalizedUserName = "python@gmail.com",
+                Email = "python@gmail.com",
+                NormalizedEmail = "python@gmail.com",
+                EmailConfirmed = true
+
+            };
+
+            normalUser2.PasswordHash = passwordHasher.HashPassword(normalUser2, "P@ssword@2010");
+            modelBuilder.Entity<ApplicationUser>().HasData(normalUser2);
+
+            ApplicationUser normalUser3 = new ApplicationUser()
+            {
+
+                Id = "ueer3-reefwe-idfob3-gre3gr-ptyi32",
+                UserName = "will@gmail.com",
+                NormalizedUserName = "will@gmail.com",
+                Email = "will@gmail.com",
+                NormalizedEmail = "will@gmail.com",
+                EmailConfirmed = true
+
+            };
+
+            normalUser3.PasswordHash = passwordHasher.HashPassword(normalUser3, "P@ssword@3010");
+            modelBuilder.Entity<ApplicationUser>().HasData(normalUser3);
+
+
+
+
+
             modelBuilder.Entity<ApplicationRole>().HasData(
                 new ApplicationRole() { Id = "fab4fac1-c546-41de-aebc-a14da6895711", Name = "Admin", ConcurrencyStamp = "1", NormalizedName = "Admin" },
                 new ApplicationRole() { Id = "c7b013f0-5201-4317-abd8-c211f91b7330", Name = "Teacher", ConcurrencyStamp = "2", NormalizedName = "Teacher" },
@@ -209,6 +261,18 @@ namespace SerpantWebApp.Data
                     FilePath = "35f3fef35-3435-3ff33-fe35f-3534f3443534e_Arthur.png",
                     UserID = "rtweetwe1-3gre-yop2-verbm-rwerreww433",
                     RoleID = "rewefac1-c53d-434f-a5gz-pet32gg95711"
+                },
+                new Student
+                {
+                    ID = 5,
+                    LastName = "Mike",
+                    FirstName = "Tyson",
+                    UserName = "mike@gmail.com",
+                    EnrollmentDate = DateTime.Parse("2021-04-01"),
+                    File = ReadFileInByte("wwwroot/images/72d3ea47-7628-4ec1-891f-6b9a979f8b3e_Asset 2-8.png"),
+                    FilePath = "35f3fef35-3435-3ff33-fe35f-3534f3443534e_Arthur.png",
+                    UserID = "rrtetrere-f32g-s42q-f3232f-ecdsvd32433",
+                    RoleID = "rewefac1-c53d-434f-a5gz-pet32gg95711"
                 }
             );
 
@@ -225,19 +289,55 @@ namespace SerpantWebApp.Data
                     FilePath = "35f3fef35-3435-3ff33-fe35f-3534f3443534e_Arthur.png",
                     UserID = "zdmmdf34-fewf3-geg2353-ppoe-fwekkv32ife",
                     RoleID = "c7b013f0-5201-4317-abd8-c211f91b7330"
-                }
+                },
+                 new Teacher
+                 {
+                     ID = 2,
+                     LastName = "Charis",
+                     FirstName = "Chan",
+                     EnrollmentDate = DateTime.Parse("2016-07-01"),
+                     File = ReadFileInByte("wwwroot/images/72d3ea47-7628-4ec1-891f-6b9a979f8b3e_Asset 2-8.png"),
+                     FilePath = "35f3fef35-3435-3ff33-fe35f-3534f3443534e_Arthur.png",
+                     UserID = "vre4yw-h563-g34y45h-fewf32-pqpfowef3",
+                     RoleID = "c7b013f0-5201-4317-abd8-c211f91b7330"
+                 }
             );
 
 
             modelBuilder.Entity<Course>().HasData(
-               // Add new Student
+               // Add new Course
                new Course
                {
-                   CourseID = 1,
+                   CourseID = 1050,
                    Title = "Fundamental of Programming",
                    Credits = 3,
-                   TeacherID = "1"
-               }
+                   File = ReadFileInByte("wwwroot/images/72d3ea47-7628-4ec1-891f-6b9a979f8b3e_Asset 2-8.png"),
+                   FilePath = "35f3fef35-3435-3ff33-fe35f-3534f3443534e_Arthur.png",
+               },
+               new Course
+               {
+                   CourseID = 2021,
+                   Title = "Software Secure Development",
+                   Credits = 4,
+                   File = ReadFileInByte("wwwroot/images/72d3ea47-7628-4ec1-891f-6b9a979f8b3e_Asset 2-8.png"),
+                   FilePath = "35f3fef35-3435-3ff33-fe35f-3534f3443534e_Arthur.png",
+               },
+               new Course
+               {
+                   CourseID = 3011,
+                   Title = "Cryptography",
+                   Credits = 5,
+                   File = ReadFileInByte("wwwroot/images/72d3ea47-7628-4ec1-891f-6b9a979f8b3e_Asset 2-8.png"),
+                   FilePath = "35f3fef35-3435-3ff33-fe35f-3534f3443534e_Arthur.png",
+               },
+                new Course
+                {
+                    CourseID = 4111,
+                    Title = "World Immersion",
+                    Credits = 2,
+                    File = ReadFileInByte("wwwroot/images/72d3ea47-7628-4ec1-891f-6b9a979f8b3e_Asset 2-8.png"),
+                    FilePath = "35f3fef35-3435-3ff33-fe35f-3534f3443534e_Arthur.png",
+                }
            );
 
             modelBuilder.Entity<Attendance>().HasData(
@@ -245,10 +345,18 @@ namespace SerpantWebApp.Data
                new Attendance
                {
                    LessonSessionID = 1,
-                   CourseID = 1,
+                   CourseID = 1050,
                    StudentID = 1,
                    TeacherID = 1,
-                   Presence = true
+                   Presence = false
+               },
+               new Attendance
+               {
+                   LessonSessionID = 2,
+                   CourseID = 2021,
+                   StudentID = 5,
+                   TeacherID = 1,
+                   Presence = false
                }
            );
 

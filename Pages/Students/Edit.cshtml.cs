@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SerpantWebApp.Data;
 using SerpantWebApp.Models;
 
@@ -14,10 +15,12 @@ namespace SerpantWebApp.Pages.Students
     public class EditModel : PageModel
     {
         private readonly SerpantWebApp.Data.SerpantWebAppContext _context;
+        private readonly ILogger<IndexModel> _logger;
 
-        public EditModel(SerpantWebApp.Data.SerpantWebAppContext context)
+        public EditModel(SerpantWebApp.Data.SerpantWebAppContext context, ILogger<IndexModel> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         [BindProperty]
@@ -52,6 +55,7 @@ namespace SerpantWebApp.Pages.Students
 
             try
             {
+                _logger.LogInformation("Edit page accessed by : " + User.Identity.Name);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)

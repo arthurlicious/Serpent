@@ -9,14 +9,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SerpantWebApp</title>
+   
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://fonts.googleapis.com/css?family=Yellowtail&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-navbar border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">SerpantWebApp</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index">Serpent</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -27,17 +30,23 @@
                             <a class="nav-link text-light" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link text-light" asp-area="" asp-page="/Privacssy">Privacy</a>
                         </li>
                         
                         @if (SignInManager.IsSignedIn(User))
                         {
                             @if (User.IsInRole("Admin") || User.IsInRole("Teacher")){
                                  <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-page="/Roles/Index">Roles</a>
+                                    <a class="nav-link text-light" asp-area="" asp-page="/Roles/Index">Role</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-area="" asp-page="/Teachers/Index">Teacher</a>
                                 </li>
                                  <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-page="/Students/Index">Students</a>
+                                    <a class="nav-link text-light" asp-area="" asp-page="/Students/Index">Student</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-area="" asp-page="/Audit/Index">Audit</a>
                                 </li>
                             }
                            
@@ -57,10 +66,12 @@
             @RenderBody()
         </main>
     </div>
+    <br />
+    <br />
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - SerpantWebApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
+    <footer class="border-top footer text-muted bg-footer">
+        <div class="container" style="color:white">
+            &copy; 2022 - SerpantWebApp - <a asp-area="" asp-page="/Privacy" style="color:white">Privacy</a>
         </div>
     </footer>
 

@@ -1,14 +1,115 @@
 ﻿@page
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using SerpantWebApp.Models
+@inject UserManager<ApplicationUser> UserManager
+@inject IAuthorizationService AuthorizationService
+@inject SignInManager<ApplicationUser> SignInManager
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
+
+
+
+@if (SignInManager.IsSignedIn(User))
+{
 <div class="container">
-  <div class="row">
-      <p class="card-text">
-                    Serpant was founded in 2022 and serves as a platform for teacher to mark their class attendance
-                </p>
-  </div>
+
+    <div class="text-center">
+        <h1 class="display-4">Serpant Attendance</h1>
+        <p>The project vision is to help provide teachers with greater convenience in improving productivity within 
+            the classroom by taking away the element of having to pass around the attendance sheet and wasting 
+            precious time to conduct the class.</p>
+    </div>
+
+    <div class="card-columns">
+        @foreach (var alpha in Model.Courses)
+        {
+            <div class="card">
+                    @if(alpha.Title.ToString() == "Fundamental of Programming")
+                    {
+                        
+                         <a asp-area="" asp-page="/FundamentalOfProgramming/Index"> 
+                            <img src="~/images/@alpha.FilePath"
+                                class="card-img"   
+                                asp-append-version="true" />  
+                            <div class="card-body">
+                                <h5 class="card-title">@alpha.Title</h5>
+                            </div>
+
+                        </a>  
+                    }    
+                     @if(alpha.Title.ToString() == "Cryptography")
+                    {
+                        
+                         <a asp-area="" asp-page="/Cryptography/Index"> 
+                            <img src="~/images/@alpha.FilePath"
+                                class="card-img"   
+                                asp-append-version="true" />  
+                            <div class="card-body">
+                                <h5 class="card-title">@alpha.Title</h5>
+                            </div>
+
+                        </a>  
+                    }    
+                    @if(alpha.Title.ToString() == "Software Secure Development")
+                    {
+                         <a asp-area="" asp-page="/SoftwareSecureDeve/Index"> 
+                            <img src="~/images/@alpha.FilePath"
+                                class="card-img"   
+                                asp-append-version="true" />  
+                            <div class="card-body">
+                                <h5 class="card-title">@alpha.Title</h5>
+                            </div>
+
+                        </a>  
+                    }
+                    @if(alpha.Title.ToString() == "World Immersion")
+                    {
+                         <a asp-area="" asp-page="/WorldImmersion/Index"> 
+                            <img src="~/images/@alpha.FilePath"
+                                class="card-img"   
+                                asp-append-version="true" />  
+                            <div class="card-body">
+                                <h5 class="card-title">@alpha.Title</h5>
+                            </div>
+
+                        </a>  
+                    }
+            </div>
+
+        }
+    </div>
+    </div>
+}
+else
+{
+
+    <div class="container"  
+        style="
+            background-image: url('https://images.pexels.com/photos/159751/book-address-book-learning-learn-159751.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            height: 100vh;
+             background-size: cover;
+    background-repeat: no-repeat;
+        ">
+        <div class="jumbotron" style=" position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+/* IE8 and below */
+    background: rgb(220,220,220);
+    /* all other browsers */
+    background: rgba(220,220,220, 0.6);">
+          <h1 class="display-4">Hello, There!</h1>
+
+          <p class="lead">Serpent making a difference in Ngee Ann Poly.</p>
+          <hr class="my-4">
+          <p class="lead">
+            <a style=" background: -webkit-linear-gradient(to bottom, rgba(48, 207, 208, 0.65), rgba(51, 8, 103, 0.65));  font-size: 52px;" asp-area="" asp-page="/Account/Login">Get Started !</a>
+          </p>
+        </div>
 </div>
+}
 

@@ -61,7 +61,7 @@ namespace SerpantWebApp.Pages.Students
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync(Student student)
+        public async Task<IActionResult> OnPostAsync(Student student, string selectedusername)
         {
             if (!ModelState.IsValid)
             {
@@ -74,10 +74,10 @@ namespace SerpantWebApp.Pages.Students
             {
                 return Page();
             }
-            /*ApplicationUser AppUser = _context.Users.SingleOrDefault(u => u.UserName ==
-           selectedusername);*/
+            ApplicationUser AppUser = _context.Users.SingleOrDefault(u => u.UserName ==
+           selectedusername);
 
-            Student.LastName = selectedusername;
+            Student.UserName = AppUser.UserName;
             /*IdentityResult roleResult = await userManager.AddToRoleAsync(AppUser, AppRole.Name);
             if (roleResult.Succeeded)
             {
@@ -130,7 +130,24 @@ namespace SerpantWebApp.Pages.Students
 
 
             _context.Student.Add(Student);
-            await _context.SaveChangesAsync();
+
+
+            // Once a record is added, create an audit record
+            if (await _context.SaveChangesAsync() > 0)
+            {
+                // Create an auditrecord object
+                var auditrecord = new AuditRecord();
+                auditrecord.AuditActionType = "Add Student Record";
+                auditrecord.DateTimeStamp = DateTime.Now;
+                auditrecord.KeyProductFieldID = Student.ID;
+                // Get current logged-in user
+                var userID = User.Identity.Name.ToString();
+                auditrecord.Username = userID;
+                _context.AuditRecords.Add(auditrecord);
+                await _context.SaveChangesAsync();
+            }
+/*
+            await _context.SaveChangesAsync();*/
 
             return RedirectToPage("./Index");
         }
@@ -152,6 +169,8 @@ namespace SerpantWebApp.Pages.Students
         }
 
     }
+
+    
 
 
 }

@@ -52,7 +52,18 @@ namespace SerpantWebApp.Pages.Teachers
             if (Teacher != null)
             {
                 _context.Teacher.Remove(Teacher);
-                await _context.SaveChangesAsync();
+                // Once a record is deleted, create an audit record
+                if (await _context.SaveChangesAsync() > 0)
+                {
+                    var auditrecord = new AuditRecord();
+                    auditrecord.AuditActionType = "Delete Movie Record";
+                    auditrecord.DateTimeStamp = DateTime.Now;
+                    auditrecord.KeyProductFieldID = Teacher.ID;
+                    var userID = User.Identity.Name.ToString();
+                    auditrecord.Username = userID;
+                    _context.AuditRecords.Add(auditrecord);
+                    await _context.SaveChangesAsync();
+                }
             }
 
             return RedirectToPage("./Index");

@@ -50,7 +50,18 @@ namespace SerpantWebApp.Pages.Students
             if (Student != null)
             {
                 _context.Student.Remove(Student);
-                await _context.SaveChangesAsync();
+                // Once a record is deleted, create an audit record
+                if (await _context.SaveChangesAsync() > 0)
+                {
+                    var auditrecord = new AuditRecord();
+                    auditrecord.AuditActionType = "Delete Student Record";
+                    auditrecord.DateTimeStamp = DateTime.Now;
+                    auditrecord.KeyProductFieldID = Student.ID;
+                    var userID = User.Identity.Name.ToString();
+                    auditrecord.Username = userID;
+                    _context.AuditRecords.Add(auditrecord);
+                    await _context.SaveChangesAsync();
+                }
             }
 
             return RedirectToPage("./Index");

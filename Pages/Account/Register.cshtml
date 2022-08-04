@@ -1,8 +1,10 @@
 ﻿@page
 @model SerpantWebApp.Pages.Account.RegisterModel
 @{
+    ViewData["Title"] = "SignUp";
+    Layout = "";
 }
-<p>
+@*<p>
     <h3>User Registration</h3>
 </p>
 <div class="container border" style="padding:20px">
@@ -34,4 +36,57 @@
             </div>
         </div>
     </form>
-</div>
+</div>*@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/login.css">
+</head>
+<body>
+    <div class="main">
+        <div class="form-container">
+            <div class="logo">
+                <img src="~/images/jira.svg" alt="logo image" />
+            </div>
+            <div class="form">
+                <h3 class="form-title">Sign Up</h3>
+                <form method="post" id="form">
+                    <div class="input-group">
+                        <label asp-for="RegisterViewModel.Email"></label>
+                        <!-- Does the actual binding through asp-for="" -->
+                        <input type="text" placeholder="Email address" asp-for="RegisterViewModel.Email"  class="form-control"/>
+                    </div>
+                
+
+                    <div class="input-group">
+                        <label asp-for="RegisterViewModel.Password"></label>
+                        <!-- Does the actual binding through asp-for="" -->
+                        <input type="password" placeholder="Password" asp-for="RegisterViewModel.Password" class="form-control"/>
+                    </div>
+                    <div class="input-group">
+                        <label asp-for="RegisterViewModel.ConfirmPassword"></label>
+                        <input type="password" placeholder="Type your password again" asp-for="RegisterViewModel.ConfirmPassword" class="form-control">
+                    </div>
+                    <div class="error-message">
+                        <div class="text-danger" asp-validation-summary="All"></div>
+                    </div>
+                    <div class="input-group">
+                        <input type="submit" class="mybuttonclass purple" name="submit" value="Register">
+                    </div>
+                </form>
+                <div class="footer-link">
+                    Already have an account?
+                    <a asp-page="/Login" title="Sign in">Sign in</a>
+                </div>
+            </div>
+
+            <div class="footer">
+                &copy; 2019 SmartNotes Technologies <span>|</span>
+                <a asp-page="/TermsCondition">Terms & Conditions</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

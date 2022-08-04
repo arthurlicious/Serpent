@@ -27,6 +27,7 @@ namespace SerpantWebApp.Data
             /*builder.Entity<Course>().ToTable("Course");
             builder.Entity<Attendance>().ToTable("Attendance");
             builder.Entity<Student>().ToTable("Student");*/
+           
 
           
 
@@ -35,9 +36,11 @@ namespace SerpantWebApp.Data
         public DbSet<SerpantWebApp.Models.Student> Student { get; set; }
         public DbSet<SerpantWebApp.Models.Attendance> Attendance { get; set; }
         public DbSet<SerpantWebApp.Models.Course> Course { get; set; }
-        public DbSet<SerpantWebApp.Models.AttendanceSheetForMath> AttendanceSheetForMath { get; set; }
-        public DbSet<SerpantWebApp.Models.AttendanceSheetForProgramming> AttendanceSheetForProgramming { get; set; }
+   
         public DbSet<SerpantWebApp.Models.Teacher> Teacher { get; set; }
+
+        public DbSet<SerpantWebApp.Models.AuditRecord> AuditRecords { get; set; }
+
 
 
 

@@ -11,8 +11,17 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input hidden asp-for="Teacher.FilePath"/>
+            <h3>[Add Student Details]</h3>
+<hr />
+            <div class="form-group">
+                 @Html.Label("Select User : ")
+                 @Html.DropDownListFor(m => m.selectedusername, Model.UsersSelectList, "Select User", new { @class = "form-control" })
+                <br />
+            </div>
+           
             <div class="form-group">
                 <label asp-for="Teacher.LastName" class="control-label"></label>
                 <input asp-for="Teacher.LastName" class="form-control" />
@@ -28,27 +37,37 @@
                 <input asp-for="Teacher.EnrollmentDate" class="form-control" />
                 <span asp-validation-for="Teacher.EnrollmentDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Teacher.File" class="control-label"></label>
-                <input asp-for="Teacher.File" class="form-control" />
-                <span asp-validation-for="Teacher.File" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Teacher.FilePath" class="control-label"></label>
-                <input asp-for="Teacher.FilePath" class="form-control" />
-                <span asp-validation-for="Teacher.FilePath" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Teacher.UserID" class="control-label"></label>
-                <select asp-for="Teacher.UserID" class ="form-control" asp-items="ViewBag.UserID"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Teacher.RoleID" class="control-label"></label>
-                <select asp-for="Teacher.RoleID" class ="form-control" asp-items="ViewBag.RoleID"></select>
+             <div class="form-group row">
+
+                <label asp-for="FormFile" class="col-sm-2 col-form-label"></label>
+
+                <div class="col-sm-10">
+                    <div class="custom-file">
+
+
+                        <input asp-for="FormFile" class="custom-file-input" />
+                        <label class="custom-file-label">Click here to change photo</label>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
+            @section Scripts {
+                @{
+                    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                }
+
+                <script>
+                    $(document).ready(function(){
+                        $('.custom-file-input').on("change", function () {
+                            var fileName = $(this).val().split("\\").pop();
+                            $(this).next('.custom-file-label').html(fileName);
+                        });
+                    })
+                </script>
+                
+            }
         </form>
     </div>
 </div>
@@ -57,6 +76,6 @@
     <a asp-page="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+
+
+

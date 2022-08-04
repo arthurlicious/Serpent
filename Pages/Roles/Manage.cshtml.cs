@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SerpantWebApp.Data;
 using SerpantWebApp.Models;
 using System.Collections.Generic;
@@ -16,12 +17,15 @@ namespace SerpantWebApp.Pages.Roles
         private readonly SerpantWebAppContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
+        private readonly ILogger<IndexModel> logger;
+
         public ManageModel(SerpantWebApp.Data.SerpantWebAppContext context,
-        UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
+        UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, ILogger<IndexModel> logger)
         {
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
+            this.logger = logger;
         }
         public SelectList RolesSelectList;
         //contain a list of roles to populate select box
@@ -75,6 +79,7 @@ namespace SerpantWebApp.Pages.Roles
             IdentityResult roleResult = await _userManager.AddToRoleAsync(AppUser, AppRole.Name);
             if (roleResult.Succeeded)
             {
+                this.logger.LogInformation("Added Role user accessed by : " + User.Identity.Name);
                 TempData["message"] = "Role added to this user successfully";
                 return RedirectToPage("Manage");
             }
@@ -91,6 +96,7 @@ namespace SerpantWebApp.Pages.Roles
             ApplicationUser user = _context.Users.Where(u => u.UserName == delusername).FirstOrDefault();
             if (await _userManager.IsInRoleAsync(user, delrolename))
             {
+                this.logger.LogInformation("Delete Role user accessed by : " + User.Identity.Name);
                 await _userManager.RemoveFromRoleAsync(user, delrolename);
                 TempData["message"] = "Role removed from this user successfully";
             }

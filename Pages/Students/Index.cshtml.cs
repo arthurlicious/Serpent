@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SerpantWebApp.Authorization;
 using SerpantWebApp.Data;
 using SerpantWebApp.Models;
@@ -18,12 +19,14 @@ namespace SerpantWebApp.Pages.Students
         private readonly SerpantWebApp.Data.SerpantWebAppContext _context;
         private readonly IAuthorizationService authorizationService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly ILogger<IndexModel> logger;
 
-        public IndexModel(SerpantWebApp.Data.SerpantWebAppContext context, IAuthorizationService authorizationService, UserManager<ApplicationUser> userManager)
+        public IndexModel(SerpantWebApp.Data.SerpantWebAppContext context, IAuthorizationService authorizationService, UserManager<ApplicationUser> userManager, ILogger<IndexModel> logger)
         {
             _context = context;
             this.authorizationService = authorizationService;
             this.userManager = userManager;
+            this.logger = logger;
         }
 
         public IList<Student> Student { get;set; }
