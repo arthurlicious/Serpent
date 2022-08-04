@@ -16,3 +16,10 @@ Instruction to Get Started
 6. Contact our chief developer @s10178253@connect.np.edu.sg
 
 7. With Love and Passion
+
+To see Log File Go to your C:// 
+1. See a temp folder created?
+
+2. Open it up.
+
+3. Check your date, it should match, for example, nlog-own-2022-08-04 
